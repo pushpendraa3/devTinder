@@ -1,11 +1,5 @@
-const express = require("express")
-const requestRouter = express.Router()
-
-const { userAuth } = require("../middlewares/userAuth");
-const ConnectionModel = require("../models/connectionRequest");
-
 requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
-    const fromUserId = req.user._id;
+    const fromUserId = req.userData._id;
 
     const toUserId = req.params.toUserId
     const status = req.params.status
@@ -22,9 +16,4 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
         message: "success",
         data,
     })
-
-
-    console.log("sending connection request...")
-
-    res.send(user.firstName + "sent the connection request")
 })

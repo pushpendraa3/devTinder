@@ -16,8 +16,8 @@ authRouter.get("/", async (req, res) => {
 authRouter.post("/signup", async (req, res) => {
     try {
         const isEmailExists = await UserModel.findOne({emailId: req.body.emailId})
-
         if (isEmailExists) return res.send("user already exists")
+
         const {password, ...others} = req.body
         const hash = await bcrypt.hash(password, 10)
         others.password = hash
@@ -27,7 +27,7 @@ authRouter.post("/signup", async (req, res) => {
         res.send("User added successfully")
     }
     catch (err) {
-        res.status(401).send("error adding User")
+        res.status(401).send("authRouter catch: error adding User")
     }
 })
 
